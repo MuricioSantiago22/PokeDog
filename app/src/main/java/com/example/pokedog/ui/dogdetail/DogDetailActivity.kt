@@ -18,7 +18,5 @@ class DogDetailActivity : AppCompatActivity() {
             finish()
             return
         }
-
-
     }
 }

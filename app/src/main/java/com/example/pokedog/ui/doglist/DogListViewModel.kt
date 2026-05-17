@@ -1,11 +1,11 @@
 package com.example.pokedog.ui.doglist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedog.Dog
+import com.example.pokedog.api.ApiResponseStatus
 import kotlinx.coroutines.launch
 
 class DogListViewModel: ViewModel() {
@@ -16,21 +16,25 @@ class DogListViewModel: ViewModel() {
 
     private val dogRepo = DogRepo()
 
+    private val _status = MutableLiveData<ApiResponseStatus<List<Dog>>>()
+    val status: LiveData<ApiResponseStatus<List<Dog>>>
+        get() = _status
+
     init {
         downloadDogs()
     }
     private fun downloadDogs() {
         viewModelScope.launch {
-            try {
-                val dogs  = dogRepo.downloadDogs()
-                Log.d("DogListViewModel", "Sin filtrar: ${dogs.size}")
-                Log.d("DogListViewModel", "Primer perro: ${dogs.firstOrNull()?.name}")
-                _dogList.value = dogs
-            } catch (e: Exception) {
-                Log.e("DogListViewModel", "Error: ${e.message}")
-                _dogList.value = emptyList()
-            }
+            _status.value = ApiResponseStatus.Loading()
+            handleResponseStatus(dogRepo.downloadDogs())
         }
+    }
+
+    private fun handleResponseStatus(downloadDogs: ApiResponseStatus<List<Dog>>) {
+         if (downloadDogs is ApiResponseStatus.Success){
+             _dogList.value = downloadDogs.data
+         }
+        _status.value = downloadDogs
     }
 
 

@@ -54,10 +54,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
-
     // Moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
     implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
+    //Coil
+    implementation("io.coil-kt:coil:2.7.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
