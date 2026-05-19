@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.doglist
+package com.example.pokedog.ui.dogList
 
 import com.example.pokedog.Dog
 import com.example.pokedog.api.ApiResponseStatus

@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.doglist
+package com.example.pokedog.ui.dogList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +20,9 @@ class DogListViewModel: ViewModel() {
     val status: LiveData<ApiResponseStatus<List<Dog>>>
         get() = _status
 
+    private val _selectedDog = MutableLiveData<Dog?>()
+    val selectedDog: LiveData<Dog?> get() = _selectedDog
+
     init {
         downloadDogs()
     }
@@ -37,5 +40,11 @@ class DogListViewModel: ViewModel() {
         _status.value = downloadDogs
     }
 
+    fun getDogByIndex(index: Int): Dog? {
+        return dogList.value?.getOrNull(index)
+    }
 
+    fun selectDog(index: Int) {
+        _selectedDog.value = dogList.value?.getOrNull(index)
+    }
 }
