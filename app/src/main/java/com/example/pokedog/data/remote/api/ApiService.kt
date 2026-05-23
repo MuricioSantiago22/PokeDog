@@ -1,4 +1,4 @@
-package com.example.pokedog.data.remote
+package com.example.pokedog.data.remote.api
 
 import com.example.pokedog.data.remote.requests.SignUpRequest
 import com.example.pokedog.data.remote.responses.DogListApiResponse

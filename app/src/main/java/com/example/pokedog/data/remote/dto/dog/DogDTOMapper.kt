@@ -1,4 +1,4 @@
-package com.example.pokedog.data.remote.dto
+package com.example.pokedog.data.remote.dto.dog
 
 import com.example.pokedog.domain.model.Dog
 

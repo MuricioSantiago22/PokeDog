@@ -1,4 +1,4 @@
-package com.example.pokedog.data.remote
+package com.example.pokedog.data.remote.api
 
 import com.example.pokedog.utils.BASE_URL
 import com.squareup.moshi.Moshi

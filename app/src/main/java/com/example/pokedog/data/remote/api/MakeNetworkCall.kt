@@ -1,4 +1,4 @@
-package com.example.pokedog.data.remote
+package com.example.pokedog.data.remote.api
 
 import com.example.pokedog.R
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,13 @@ suspend fun <T> makeNetworkCall(
             ApiResponseStatus.Error(R.string.unknow_host_exception_error)
 
         } catch(e:Exception) {
-            ApiResponseStatus.Error(R.string.unknow_error)
+            val errorMessageId = when(e.message) {
+            "sign_up_error" -> R.string.error_sign_up
+                "sign_in_error" -> R.string.error_sign_in
+                "user_already_exists" -> R.string.user_already_exists
+                else -> R.string.unknow_error
+            }
+            ApiResponseStatus.Error(errorMessageId)
         }
     }
 }

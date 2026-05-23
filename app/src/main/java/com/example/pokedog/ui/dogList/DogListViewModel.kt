@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedog.data.remote.ApiResponseStatus
+import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.data.repository.DogRepo
 import com.example.pokedog.domain.model.Dog
 import kotlinx.coroutines.launch

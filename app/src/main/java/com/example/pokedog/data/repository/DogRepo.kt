@@ -1,9 +1,9 @@
 package com.example.pokedog.data.repository
 
-import com.example.pokedog.data.remote.ApiResponseStatus
-import com.example.pokedog.data.remote.DogsApi
-import com.example.pokedog.data.remote.dto.DogDTOMapper
-import com.example.pokedog.data.remote.makeNetworkCall
+import com.example.pokedog.data.remote.api.ApiResponseStatus
+import com.example.pokedog.data.remote.api.DogsApi
+import com.example.pokedog.data.remote.dto.dog.DogDTOMapper
+import com.example.pokedog.data.remote.api.makeNetworkCall
 import com.example.pokedog.domain.model.Dog
 
 class DogRepo {

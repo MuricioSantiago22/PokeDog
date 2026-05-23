@@ -1,4 +1,4 @@
-package com.example.pokedog.data.remote
+package com.example.pokedog.data.remote.api
 
 sealed class ApiResponseStatus<T>(){
     class Success<T>(val data: T ): ApiResponseStatus<T>()

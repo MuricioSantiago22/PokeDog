@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.pokedog.data.remote.ApiResponseStatus
+import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.ui.theme.PokeDogTheme
 import com.example.pokedog.utils.GRID_SPAN_COUNT
 import androidx.compose.foundation.lazy.grid.items
