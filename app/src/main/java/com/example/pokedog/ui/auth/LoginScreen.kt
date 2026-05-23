@@ -1,29 +1,53 @@
 package com.example.pokedog.ui.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.ui.theme.PokeDogTheme
 import com.example.pokedog.utils.AuthValidations
 
 @Composable
 fun LoginScreen(
-    onLoginClick: () -> Unit,
+    viewModel: AuthViewModel = viewModel(),
+    onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
+
+    val status by viewModel.status.observeAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(status) {
+        when (status) {
+            is ApiResponseStatus.Success -> onLoginSuccess()
+            is ApiResponseStatus.Error -> {
+                val error = status as ApiResponseStatus.Error
+                Toast.makeText(context, error.messageId, Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -58,6 +82,8 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        var passwordVisible by remember { mutableStateOf(false) }
+
         OutlinedTextField(
             value = password,
             onValueChange = {
@@ -67,7 +93,21 @@ fun LoginScreen(
             label = { Text("Contraseña") },
             isError = passwordError != null,
             supportingText = { passwordError?.let { Text(it) } },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisible)
+                VisualTransformation.None
+            else
+                PasswordVisualTransformation(),
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (passwordVisible)
+                            Icons.Default.Visibility
+                        else
+                            Icons.Default.VisibilityOff,
+                        contentDescription = if (passwordVisible) "Ocultar" else "Mostrar"
+                    )
+                }
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done
@@ -83,10 +123,11 @@ fun LoginScreen(
                 emailError = AuthValidations.validateEmail(email)
                 passwordError = AuthValidations.validatePassword(password)
                 if (emailError == null && passwordError == null) {
-                    onLoginClick()
+                    viewModel.signIn(email, password)
                 }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = status !is ApiResponseStatus.Loading
         ) {
             Text("Iniciar sesión")
         }
@@ -104,7 +145,7 @@ fun LoginScreen(
 fun LoginScreenPreview() {
     PokeDogTheme {
         LoginScreen(
-            onLoginClick = {},
+            onLoginSuccess = {},
             onRegisterClick = {}
         )
     }

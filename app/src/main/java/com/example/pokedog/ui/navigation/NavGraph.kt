@@ -43,7 +43,11 @@ fun NavGraph(
         ) {
             composable(NavRoutes.Login.route) {
                 LoginScreen(
-                    onLoginClick = { navController.navigate(NavRoutes.DogList.route) },
+                    viewModel = authViewModel,
+                    onLoginSuccess = {
+                        dogListViewModel.downloadDogs()
+                        navController.navigate(NavRoutes.DogList.route)
+                    },
                     onRegisterClick = { navController.navigate(NavRoutes.Register.route) }
                 )
             }
@@ -60,6 +64,12 @@ fun NavGraph(
                     onDogClick = { index ->
                         dogListViewModel.selectDog(index)
                         navController.navigate(NavRoutes.DogDetail.createRoute(index))
+                    },
+                    onLogoutClick = {
+                        authViewModel.logout()
+                        navController.navigate(NavRoutes.Login.route) {
+                            popUpTo(NavRoutes.Login.route) { inclusive = true }
+                        }
                     }
                 )
             }

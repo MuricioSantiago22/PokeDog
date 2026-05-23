@@ -22,11 +22,7 @@ class DogListViewModel : ViewModel() {
     private val _selectedDog = MutableLiveData<Dog?>()
     val selectedDog: LiveData<Dog?> get() = _selectedDog
 
-    init {
-        downloadDogs()
-    }
-
-    private fun downloadDogs() {
+    fun downloadDogs() {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
             val result = repository.downloadDogs()

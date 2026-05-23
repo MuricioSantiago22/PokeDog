@@ -2,6 +2,6 @@ package com.example.pokedog.utils
 
 const val BASE_URL = "https://todogs.herokuapp.com/api/v1/"
 const val GET_ALL_DOGS_URL = "dogs"
-const val DOG_KEY = "dog"
 const val GRID_SPAN_COUNT = 3
 const val SIGN_UP = "sign_up"
+const val SIGN_IN = "sign_in"

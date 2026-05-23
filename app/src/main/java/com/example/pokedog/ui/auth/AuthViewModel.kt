@@ -16,10 +16,33 @@ class AuthViewModel : ViewModel() {
     private val _status = MutableLiveData<ApiResponseStatus<User>>()
     val status: LiveData<ApiResponseStatus<User>> get() = _status
 
-    fun signUp(name: String, password: String, passwordConfirmation: String) {
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?> get() = _user
+
+    fun signUp(email: String, password: String, passwordConfirmation: String) {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
-            _status.value = repository.signUp(name, password, passwordConfirmation)
+            val result = repository.signUp(email, password, passwordConfirmation)
+            if (result is ApiResponseStatus.Success) {
+                _user.value = result.data
+            }
+            _status.value = result
         }
+    }
+
+    fun signIn(email: String, password: String) {
+        viewModelScope.launch {
+            _status.value = ApiResponseStatus.Loading()
+            val result = repository.signIn(email, password)
+            if (result is ApiResponseStatus.Success) {
+                _user.value = result.data
+            }
+            _status.value = result
+        }
+    }
+
+    fun logout() {
+        _user.value = null
+        _status.value = ApiResponseStatus.None()
     }
 }

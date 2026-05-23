@@ -66,6 +66,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     //LiveData
     implementation("androidx.compose.runtime:runtime-livedata:1.11.1")
+    //MaterialIcons
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

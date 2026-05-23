@@ -18,11 +18,12 @@ fun RegisterScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-
     var nameError by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
     var confirmPasswordError by remember { mutableStateOf<String?>(null) }
+    var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     val status by viewModel.status.observeAsState()
     val context = LocalContext.current
@@ -53,15 +54,18 @@ fun RegisterScreen(
         onPasswordChange = { password = it; passwordError = AuthValidations.validatePassword(it) },
         onConfirmPasswordChange = { confirmPassword = it; confirmPasswordError = AuthValidations.validateConfirmPassword(password, it) },
         onRegisterClick = {
-            nameError = AuthValidations.validateName(name)
             emailError = AuthValidations.validateEmail(email)
             passwordError = AuthValidations.validatePassword(password)
             confirmPasswordError = AuthValidations.validateConfirmPassword(password, confirmPassword)
-            if (nameError == null && emailError == null &&
+            if ( emailError == null &&
                 passwordError == null && confirmPasswordError == null) {
-                viewModel.signUp(name, password, confirmPassword)
+                viewModel.signUp(email, password, confirmPassword)
             }
         },
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
+        passwordVisible = passwordVisible,
+        confirmPasswordVisible = confirmPasswordVisible,
+        onPasswordVisibilityClick = { passwordVisible = !passwordVisible },
+        onConfirmPasswordVisibilityClick = { confirmPasswordVisible = !confirmPasswordVisible },
     )
 }

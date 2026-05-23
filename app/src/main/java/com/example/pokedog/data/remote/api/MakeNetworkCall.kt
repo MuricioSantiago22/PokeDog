@@ -1,5 +1,6 @@
 package com.example.pokedog.data.remote.api
 
+import android.util.Log
 import com.example.pokedog.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,6 +16,7 @@ suspend fun <T> makeNetworkCall(
             ApiResponseStatus.Error(R.string.unknow_host_exception_error)
 
         } catch(e:Exception) {
+            Log.e("makeNetworkCall", "Error: ${e.message}")
             val errorMessageId = when(e.message) {
             "sign_up_error" -> R.string.error_sign_up
                 "sign_in_error" -> R.string.error_sign_in
