@@ -59,10 +59,12 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
     //Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    //Navigation
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation("androidx.navigation:navigation-compose:2.7.7")
-
+    //Okhttp
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    //LiveData
     implementation("androidx.compose.runtime:runtime-livedata:1.11.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
