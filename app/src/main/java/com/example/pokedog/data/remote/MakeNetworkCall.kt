@@ -1,4 +1,4 @@
-package com.example.pokedog.api
+package com.example.pokedog.data.remote
 
 import com.example.pokedog.R
 import kotlinx.coroutines.Dispatchers
@@ -7,7 +7,7 @@ import java.net.UnknownHostException
 
 suspend fun <T> makeNetworkCall(
     call: suspend ()-> T
-): ApiResponseStatus<T>{
+): ApiResponseStatus<T> {
     return withContext(Dispatchers.IO) {
         try{
             ApiResponseStatus.Success(call())

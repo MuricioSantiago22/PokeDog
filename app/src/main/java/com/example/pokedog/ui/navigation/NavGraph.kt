@@ -28,7 +28,7 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(NavRoutes.Register.route) {
             RegisterScreen(
-                onRegisterClick = { navController.navigate(NavRoutes.DogList.route) },
+                onRegisterSuccess = { navController.navigate(NavRoutes.DogList.route) },
                 onBackClick = { navController.popBackStack() }
             )
         }

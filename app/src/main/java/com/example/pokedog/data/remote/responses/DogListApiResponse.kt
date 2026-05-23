@@ -1,5 +1,6 @@
-package com.example.pokedog.api.responses
+package com.example.pokedog.data.remote.responses
 
+import com.example.pokedog.data.remote.responses.DogListResponse
 import com.squareup.moshi.Json
 
 data class DogListApiResponse(

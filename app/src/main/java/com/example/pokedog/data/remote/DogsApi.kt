@@ -1,4 +1,4 @@
-package com.example.pokedog.api
+package com.example.pokedog.data.remote
 
 object DogsApi {
     val retrofitService: ApiService by lazy {

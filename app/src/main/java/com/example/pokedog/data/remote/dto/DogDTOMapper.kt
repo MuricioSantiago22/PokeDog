@@ -1,6 +1,6 @@
-package com.example.pokedog.api.dto
+package com.example.pokedog.data.remote.dto
 
-import com.example.pokedog.Dog
+import com.example.pokedog.domain.model.Dog
 
 class DogDTOMapper {
     fun fromDogDTOToDogDomain(dogDTO: DogDTO): Dog {

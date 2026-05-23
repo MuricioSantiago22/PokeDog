@@ -4,21 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedog.Dog
-import com.example.pokedog.api.ApiResponseStatus
+import com.example.pokedog.data.remote.ApiResponseStatus
+import com.example.pokedog.data.repository.DogRepo
+import com.example.pokedog.domain.model.Dog
 import kotlinx.coroutines.launch
 
-class DogListViewModel: ViewModel() {
+class DogListViewModel : ViewModel() {
+
+    private val repository = DogRepo()
 
     private val _dogList = MutableLiveData<List<Dog>>()
-    val  dogList : LiveData<List<Dog>>
-        get()= _dogList
-
-    private val dogRepo = DogRepo()
+    val dogList: LiveData<List<Dog>> get() = _dogList
 
     private val _status = MutableLiveData<ApiResponseStatus<List<Dog>>>()
-    val status: LiveData<ApiResponseStatus<List<Dog>>>
-        get() = _status
+    val status: LiveData<ApiResponseStatus<List<Dog>>> get() = _status
 
     private val _selectedDog = MutableLiveData<Dog?>()
     val selectedDog: LiveData<Dog?> get() = _selectedDog
@@ -26,25 +25,19 @@ class DogListViewModel: ViewModel() {
     init {
         downloadDogs()
     }
+
     private fun downloadDogs() {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
-            handleResponseStatus(dogRepo.downloadDogs())
+            val result = repository.downloadDogs()
+            if (result is ApiResponseStatus.Success) {
+                _dogList.value = result.data
+            }
+            _status.value = result
         }
     }
 
-    private fun handleResponseStatus(downloadDogs: ApiResponseStatus<List<Dog>>) {
-         if (downloadDogs is ApiResponseStatus.Success){
-             _dogList.value = downloadDogs.data
-         }
-        _status.value = downloadDogs
-    }
-
-    fun getDogByIndex(index: Int): Dog? {
-        return dogList.value?.getOrNull(index)
-    }
-
     fun selectDog(index: Int) {
-        _selectedDog.value = dogList.value?.getOrNull(index)
+        _selectedDog.value = _dogList.value?.getOrNull(index)
     }
 }

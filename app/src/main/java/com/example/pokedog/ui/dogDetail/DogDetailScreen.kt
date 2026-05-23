@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.pokedog.Dog
+import com.example.pokedog.domain.model.Dog
 import com.example.pokedog.ui.dogList.DogListViewModel
 import com.example.pokedog.ui.theme.PokeDogTheme
 
@@ -26,7 +26,6 @@ fun DogDetailScreen(
     onBackClick: () -> Unit
 ) {
     val dog by viewModel.selectedDog.observeAsState()
-
 
     Scaffold(
         topBar = {
@@ -67,17 +66,13 @@ fun DogDetailContent(dog: Dog, paddingValues: PaddingValues) {
                 .height(280.dp),
             contentScale = ContentScale.Crop
         )
-
         Column(modifier = Modifier.padding(16.dp)) {
-
             Text(
                 text = dog.name ?: "Sin nombre",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
-
             Spacer(modifier = Modifier.height(16.dp))
-
             DogDetailRow(label = "Tipo", value = dog.type)
             DogDetailRow(label = "Peso hembra", value = dog.weightFemale)
             DogDetailRow(label = "Peso macho", value = dog.weightMale)
@@ -98,15 +93,8 @@ fun DogDetailRow(label: String, value: String?) {
                 .padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyLarge
-            )
+            Text(text = label, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
+            Text(text = value, style = MaterialTheme.typography.bodyLarge)
         }
         HorizontalDivider()
     }
@@ -116,20 +104,11 @@ fun DogDetailRow(label: String, value: String?) {
 @Composable
 fun DogDetailScreenPreview() {
     PokeDogTheme {
-        val fakeDog = Dog(
-            id = 1, index = 1,
-            name = "Golden Retriever",
-            type = "Sporting",
-            weightFemale = "25 kg",
-            weightMale = "30 kg",
-            heightFemale = "55 cm",
-            heightMale = "60 cm",
-            lifeExpectancy = "10 - 12",
-            temperament = "Amigable, Confiable, Juguetón",
-            imageUrl = ""
-        )
         DogDetailContent(
-            dog = fakeDog,
+            dog = Dog(id = 1, index = 1, name = "Golden Retriever", type = "Sporting",
+                weightFemale = "25 kg", weightMale = "30 kg", heightFemale = "55 cm",
+                heightMale = "60 cm", lifeExpectancy = "10 - 12",
+                temperament = "Amigable, Confiable, Juguetón", imageUrl = ""),
             paddingValues = PaddingValues(0.dp)
         )
     }
