@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.pokedog.components.CollectionDogGridItem
 import com.example.pokedog.components.DogGridItem
 import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.domain.model.Dog
@@ -27,6 +28,7 @@ fun UserDogListScreen(
     onDogClick: (Int) -> Unit
 ) {
     val context = LocalContext.current
+    val dogList by viewModel.dogList.observeAsState(emptyList())
     val userDogList by viewModel.userDogList.observeAsState(emptyList())
     val status by viewModel.status.observeAsState()
 
@@ -44,22 +46,18 @@ fun UserDogListScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            if (userDogList.isEmpty() && status !is ApiResponseStatus.Loading) {
-                Text(
-                    text = "No tienes perros en tu colección",
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(GRID_SPAN_COUNT),
-                    contentPadding = PaddingValues(8.dp)
-                ) {
-                    items(userDogList.size) { index ->
-                        DogGridItem(
-                            dog = userDogList[index],
-                            onClick = { onDogClick(index) }
-                        )
-                    }
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(GRID_SPAN_COUNT),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(dogList.size) { index ->
+                    val dog = dogList[index]
+                    val isInCollection = userDogList.any { it.id == dog.id }
+                    CollectionDogGridItem(
+                        dog = dog,
+                        isInCollection = isInCollection,
+                        onClick = { if (isInCollection) onDogClick(index) }
+                    )
                 }
             }
 
