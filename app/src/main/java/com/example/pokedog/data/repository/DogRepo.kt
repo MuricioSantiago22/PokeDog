@@ -16,7 +16,7 @@ class DogRepo {
         val dogDTOList = response.body()?.data?.dogs
             ?.filter { it.name != null }
             ?: emptyList()
-        mapper.toDomainList(dogDTOList)
+        mapper.toDomainList(dogDTOList).sortedBy { it.index }
     }
 
     suspend fun addDogToUser(dogId: Long): ApiResponseStatus<Any> = makeNetworkCall {
@@ -35,6 +35,6 @@ class DogRepo {
         val dogDTOList = response.body()?.data?.dogs
             ?.filter { it.name != null }
             ?: emptyList()
-        mapper.toDomainList(dogDTOList)
+        mapper.toDomainList(dogDTOList).sortedBy { it.index }
     }
 }

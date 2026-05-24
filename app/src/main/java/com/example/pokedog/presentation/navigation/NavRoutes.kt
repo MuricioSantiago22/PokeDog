@@ -7,4 +7,5 @@ sealed class NavRoutes(val route: String) {
     object DogDetail : NavRoutes("dogDetail/{dogIndex}") {
         fun createRoute(dogId: Int) = "dogDetail/$dogId"
     }
+    object UserDogList : NavRoutes("userDogList")
 }

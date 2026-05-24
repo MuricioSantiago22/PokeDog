@@ -39,9 +39,15 @@ class DogListViewModel : ViewModel() {
         }
     }
 
-    fun selectDog(index: Int) {
-        _selectedDog.value = _dogList.value?.getOrNull(index)
+    fun selectDog(index: Int, fromUserList: Boolean = false) {
+        _selectedDog.value = if (fromUserList) {
+            _userDogList.value?.getOrNull(index)
+        } else {
+            _dogList.value?.getOrNull(index)
+        }
     }
+
+
 
     fun addDogToUser(dogId: Long) {
         viewModelScope.launch {
@@ -59,5 +65,9 @@ class DogListViewModel : ViewModel() {
             }
             _status.value = result
         }
+    }
+
+    fun resetAddDogStatus() {
+        _addDogStatus.value = ApiResponseStatus.None()
     }
 }
