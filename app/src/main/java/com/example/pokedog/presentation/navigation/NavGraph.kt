@@ -27,19 +27,22 @@ import com.example.pokedog.presentation.dogList.DogListViewModel
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    startDestination: String = NavRoutes.Login.route
 ) {
     val dogListViewModel: DogListViewModel = viewModel()
     val authStatus by authViewModel.status.observeAsState()
     val dogStatus by dogListViewModel.status.observeAsState()
+    val addDogStatus by dogListViewModel.addDogStatus.observeAsState()
 
     val isLoading = authStatus is ApiResponseStatus.Loading ||
-            dogStatus is ApiResponseStatus.Loading
+            dogStatus is ApiResponseStatus.Loading ||
+            addDogStatus is ApiResponseStatus.Loading
 
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
-            startDestination = NavRoutes.Login.route
+            startDestination = startDestination // ✅ Dinámico
         ) {
             composable(NavRoutes.Login.route) {
                 LoginScreen(
@@ -56,7 +59,8 @@ fun NavGraph(
                     viewModel = authViewModel,
                     onRegisterSuccess = {
                         dogListViewModel.downloadDogs()
-                        navController.navigate(NavRoutes.DogList.route) },
+                        navController.navigate(NavRoutes.DogList.route)
+                    },
                     onBackClick = { navController.popBackStack() }
                 )
             }

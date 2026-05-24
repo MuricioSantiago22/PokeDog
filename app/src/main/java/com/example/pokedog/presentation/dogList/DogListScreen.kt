@@ -1,7 +1,8 @@
 package com.example.pokedog.presentation.dogList
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -36,6 +37,12 @@ fun DogListScreen(
     val dogList by viewModel.dogList.observeAsState(emptyList())
     val status by viewModel.status.observeAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        if (dogList.isEmpty()) {
+            viewModel.downloadDogs()
+        }
+    }
 
     if (showLogoutDialog) {
         AppDialog(
@@ -78,7 +85,12 @@ fun DogListScreen(
                 items(dogList.size) { index ->
                     DogGridItem(
                         dog = dogList[index],
-                        onClick = { onDogClick(index) }
+                        onClick = { onDogClick(index) },
+                        onLongClick = {
+                            dogList[index].id?.let { dogId ->
+                                viewModel.addDogToUser(dogId)
+                            }
+                        }
                     )
                 }
             }
@@ -94,13 +106,17 @@ fun DogListScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DogGridItem(dog: Dog, onClick: () -> Unit) {
+fun DogGridItem(dog: Dog, onClick: () -> Unit, onLongClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clickable { onClick() }
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick
+            )
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -144,7 +160,7 @@ fun DogListScreenPreview() {
             contentPadding = PaddingValues(8.dp)
         ) {
             items(fakeDogs) { dog ->
-                DogGridItem(dog = dog, onClick = {})
+                DogGridItem(dog = dog, onClick = {}, onLongClick = {})
             }
         }
     }

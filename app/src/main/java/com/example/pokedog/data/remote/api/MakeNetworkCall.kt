@@ -21,6 +21,7 @@ suspend fun <T> makeNetworkCall(
             "sign_up_error" -> R.string.error_sign_up
                 "sign_in_error" -> R.string.error_sign_in
                 "user_already_exists" -> R.string.user_already_exists
+                "add_dog_to_user_error" -> R.string.error_add_dog_to_user
                 else -> R.string.unknow_error
             }
             ApiResponseStatus.Error(errorMessageId)
