@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.dogList
+package com.example.pokedog.presentation.dogList
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -23,7 +22,7 @@ import coil.compose.AsyncImage
 import com.example.pokedog.components.AppDialog
 import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.domain.model.Dog
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.theme.PokeDogTheme
 import com.example.pokedog.utils.GRID_SPAN_COUNT
 
 @OptIn(ExperimentalMaterial3Api::class)

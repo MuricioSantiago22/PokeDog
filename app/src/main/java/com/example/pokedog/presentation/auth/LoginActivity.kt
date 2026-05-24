@@ -1,12 +1,12 @@
-package com.example.pokedog.ui.auth
+package com.example.pokedog.presentation.auth
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.compose.rememberNavController
-import com.example.pokedog.ui.navigation.NavGraph
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.navigation.NavGraph
+import com.example.pokedog.presentation.theme.PokeDogTheme
 
 class LoginActivity : AppCompatActivity() {
 

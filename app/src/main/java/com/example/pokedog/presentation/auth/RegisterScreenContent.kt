@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.auth
+package com.example.pokedog.presentation.auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.theme.PokeDogTheme
 
 @Composable
 fun RegisterScreenContent(

@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.navigation
+package com.example.pokedog.presentation.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,12 +17,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.pokedog.data.remote.api.ApiResponseStatus
-import com.example.pokedog.ui.auth.AuthViewModel
-import com.example.pokedog.ui.auth.LoginScreen
-import com.example.pokedog.ui.auth.RegisterScreen
-import com.example.pokedog.ui.dogDetail.DogDetailScreen
-import com.example.pokedog.ui.dogList.DogListScreen
-import com.example.pokedog.ui.dogList.DogListViewModel
+import com.example.pokedog.presentation.auth.AuthViewModel
+import com.example.pokedog.presentation.auth.LoginScreen
+import com.example.pokedog.presentation.auth.RegisterScreen
+import com.example.pokedog.presentation.dogDetail.DogDetailScreen
+import com.example.pokedog.presentation.dogList.DogListScreen
+import com.example.pokedog.presentation.dogList.DogListViewModel
 
 @Composable
 fun NavGraph(
@@ -54,7 +54,9 @@ fun NavGraph(
             composable(NavRoutes.Register.route) {
                 RegisterScreen(
                     viewModel = authViewModel,
-                    onRegisterSuccess = { navController.navigate(NavRoutes.DogList.route) },
+                    onRegisterSuccess = {
+                        dogListViewModel.downloadDogs()
+                        navController.navigate(NavRoutes.DogList.route) },
                     onBackClick = { navController.popBackStack() }
                 )
             }

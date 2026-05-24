@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.auth
+package com.example.pokedog.presentation.auth
 
 import android.widget.Toast
 import androidx.compose.runtime.*

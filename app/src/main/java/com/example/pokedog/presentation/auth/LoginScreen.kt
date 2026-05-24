@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.auth
+package com.example.pokedog.presentation.auth
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pokedog.data.remote.api.ApiResponseStatus
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.theme.PokeDogTheme
 import com.example.pokedog.utils.AuthValidations
 
 @Composable

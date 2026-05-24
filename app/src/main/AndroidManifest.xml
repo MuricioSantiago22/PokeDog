@@ -23,7 +23,7 @@
         android:theme="@style/Theme.PokeDog">
 
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".presentation.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />

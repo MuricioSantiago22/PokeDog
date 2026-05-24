@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.auth
+package com.example.pokedog.presentation.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

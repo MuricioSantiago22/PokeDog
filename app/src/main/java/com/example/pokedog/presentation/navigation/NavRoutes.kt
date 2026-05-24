@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.navigation
+package com.example.pokedog.presentation.navigation
 
 sealed class NavRoutes(val route: String) {
     object Login : NavRoutes("login")

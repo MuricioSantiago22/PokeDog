@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.theme.PokeDogTheme
 
 @Composable
 fun AppDialog(

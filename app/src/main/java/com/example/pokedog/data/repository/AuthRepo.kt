@@ -1,6 +1,5 @@
 package com.example.pokedog.data.repository
 
-import android.util.Log
 import com.example.pokedog.data.remote.api.ApiResponseStatus
 import com.example.pokedog.data.remote.api.DogsApi
 import com.example.pokedog.data.remote.api.makeNetworkCall
@@ -21,12 +20,7 @@ class AuthRepo {
         val response = DogsApi.retrofitService.signUp(
             SignUpRequest(email, password, passwordConfirmation)
         )
-
         val errorBody = response.errorBody()?.string()
-        Log.d("AuthRepository", "code: ${response.code()}")
-        Log.d("AuthRepository", "errorBody: $errorBody")
-        Log.d("AuthRepository", "body: ${response.body()}")
-
         when {
             !response.isSuccessful -> throw Exception(errorBody ?: "sign_up_error")
             response.body()?.data?.user == null -> throw Exception("sign_up_error")
@@ -41,12 +35,7 @@ class AuthRepo {
         val response = DogsApi.retrofitService.signIn(
             LoginRequest(email, password)
         )
-
         val errorBody = response.errorBody()?.string()
-        Log.d("AuthRepository", "code: ${response.code()}")
-        Log.d("AuthRepository", "errorBody: $errorBody")
-        Log.d("AuthRepository", "body: ${response.body()}")
-
         when {
             !response.isSuccessful -> throw Exception(errorBody ?: "sign_in_error")
             response.body()?.data?.user == null -> throw Exception("sign_in_error")

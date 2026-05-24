@@ -1,4 +1,4 @@
-package com.example.pokedog.ui.dogList
+package com.example.pokedog.presentation.dogList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

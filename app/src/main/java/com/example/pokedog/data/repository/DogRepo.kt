@@ -15,6 +15,6 @@ class DogRepo {
         val dogDTOList = response.body()?.data?.dogs
             ?.filter { it.name != null }
             ?: emptyList()
-        mapper.fromDogDTOListToDomainList(dogDTOList)
+        mapper.toDomainList(dogDTOList)
     }
 }

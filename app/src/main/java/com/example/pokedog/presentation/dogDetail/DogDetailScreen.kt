@@ -1,10 +1,10 @@
-package com.example.pokedog.ui.dogDetail
+package com.example.pokedog.presentation.dogDetail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.pokedog.domain.model.Dog
-import com.example.pokedog.ui.dogList.DogListViewModel
-import com.example.pokedog.ui.theme.PokeDogTheme
+import com.example.pokedog.presentation.dogList.DogListViewModel
+import com.example.pokedog.presentation.theme.PokeDogTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +33,7 @@ fun DogDetailScreen(
                 title = { Text(dog?.name ?: "Detalle") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Regresar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
                     }
                 }
             )
